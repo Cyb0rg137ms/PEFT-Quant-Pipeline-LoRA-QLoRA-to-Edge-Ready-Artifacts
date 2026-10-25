@@ -112,8 +112,7 @@ and `pipeline.compile`. All 36 original tests pass unchanged, alongside 37 new o
 
 ## CI
 
-`ci/github-actions-ci.yml` runs ruff, mypy, pytest and the benchmark on CPU across Python 3.11–3.13. It lives under
-`ci/` because the push token lacks the `workflow` scope. Move it to `.github/workflows/ci.yml` to enable it.
+`.github/workflows/ci.yml` runs ruff, mypy, pytest and the benchmark on CPU across Python 3.11–3.13.
 
 ## License
 

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peft-quant-pipeline"
+version = "2.0.0"
+description = "LoRA/DoRA/AdaLoRA adapters, RTN/NF4/GPTQ weight quantisation with real bit-packing, Freivalds-verified edge export, toy GRPO"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Cyb0rg137ms" }]
+requires-python = ">=3.11"
+dependencies = ["torch>=2.2"]
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-timeout", "ruff", "mypy"]
+
+[project.scripts]
+peftquant = "peftquant.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["peftquant*", "pipeline*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+# B008: defaults are frozen dataclasses (immutable)
+ignore = ["E731", "RUF001", "RUF002", "RUF003", "B023", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B", "E501", "RUF059"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --timeout=300"
+filterwarnings = ["ignore::DeprecationWarning"]
